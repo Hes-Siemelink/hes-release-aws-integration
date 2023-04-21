@@ -7,7 +7,7 @@
 
 types:
 
-  containerExamples.BaseTask:
+  aws.BaseTask:
     extends: xlrelease.ContainerTask
     virtual: true
 
@@ -18,57 +18,31 @@ types:
       iconLocation: test.png
       taskColor: "#667385"
 
-
-  containerExamples.Hello:
-    extends: containerExamples.BaseTask
-    description: "Simple greeter task"
-
-    input-properties:
-      yourName:
-        description: The name to greet
-        kind: string
-        default: World
-
-    output-properties:
-      greeting:
-        kind: string
-
-
-  containerExamples.SetSystemMessage:
-    extends: containerExamples.BaseTask
-    description: Simple API task
-
-    input-properties:
-      message:
-        description: This message will appear as a banner in the Release UI. Admin access required.
-        kind: string
-
-
-  containerExamples.ServerQuery:
-    extends: containerExamples.BaseTask
+  aws.ServerQuery:
+    extends: aws.BaseTask
     description: Simple API task
 
     input-properties:
       server:
         kind: ci
-        referenced-type: containerExamples.Server
-      productId:
-        kind: string
-        default: 1
+        referenced-type: aws.Server
+#      productId:
+#        kind: string
+#        default: 1
 
-    output-properties:
-      productName:
-        kind: string
-      productBrand:
-        kind: string
+#    output-properties:
+#      productName:
+#        kind: string
+#      productBrand:
+#        kind: string
 
 
-  containerExamples.Server:
+  aws.Server:
     extends: configuration.BasicAuthHttpConnection
 
     properties:
       # Overrides 'url' property to give it a default value and a new description
       url:
-        default: https://dummyjson.com
-        description: A Dummy JSON server
+        default: http://digitalai.release.local:4566 # LocalStack
+        description: The AWS endpoint
         required: true

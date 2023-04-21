@@ -1,5 +1,6 @@
-import requests
 from digitalai.release.integration import BaseTask
+
+import boto3
 
 
 class ServerQuery(BaseTask):
@@ -19,14 +20,14 @@ class ServerQuery(BaseTask):
         request_url = f"{server_url}/products/{product_id}"
 
         # Make request
-        self.add_comment(f"Sending request to {request_url}")
-        response = requests.get(request_url, auth=auth)
-        response.raise_for_status()
+        endpoint_url = "http://digitalai.release.local:4566"
+        client = boto3.client("lambda", endpoint_url=endpoint_url, region_name='eu-west-2',
+                              aws_access_key_id="", aws_secret_access_key="")
+        result = client.list_functions()
 
-        # Process result
-        product_name = response.json()['title'].strip()
-        product_brand = response.json()['brand'].strip()
-        self.add_comment(f"Product `{product_id}`: {product_name} by {product_brand}")
-        self.set_output_property('productName', product_name)
-        self.set_output_property('productBrand', product_brand)
+        print(result)
+
+
+
+
 

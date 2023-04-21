@@ -31,3 +31,7 @@ venv
 .scala_dependencies
 .cache-main
 .cache-tests
+
+# Localstack
+volume
+localstack
