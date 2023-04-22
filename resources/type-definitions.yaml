@@ -54,6 +54,6 @@ types:
     properties:
       # Overrides 'url' property to give it a default value and a new description
       url:
-        default: http://digitalai.release.local:4566 # LocalStack
+        default: http://localstack:4566 # LocalStack
         description: The AWS endpoint
         required: true

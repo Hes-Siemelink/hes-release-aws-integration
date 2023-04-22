@@ -10,7 +10,7 @@ class TestS3(unittest.TestCase):
         task = CreateS3Bucket()
         task.input_properties = {
             'server': {
-                'url': 'http://digitalai.release.local:4566',
+                'url': 'http://localhost:4566',
                 'username': 'admin',
                 'password': 'admin',
                 'authenticationMethod': 'Basic'
@@ -29,7 +29,7 @@ class TestS3(unittest.TestCase):
         task = ListS3Buckets()
         task.input_properties = {
             'server': {
-                'url': 'http://digitalai.release.local:4566',
+                'url': 'http://localhost:4566',
                 'username': 'admin',
                 'password': 'admin',
                 'authenticationMethod': 'Basic'
@@ -40,7 +40,7 @@ class TestS3(unittest.TestCase):
         task.execute_task()
 
         # Then
-        self.assertEqual(task.get_output_properties()['buckets'], ['/new-bucket'])
+        self.assertEqual(task.get_output_properties()['buckets'], ['new-bucket'])
 
 
 if __name__ == '__main__':

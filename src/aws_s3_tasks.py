@@ -46,8 +46,8 @@ class ListS3Buckets(BaseTask):
         response = s3_client.list_buckets()
 
         # Example response: [{'CreationDate': datetime.datetime(2023, 4, 21, 15, 13, 35, tzinfo=tzutc()), 'Name': 'new-bucket'}]
-        # TODO parse result list out of response
-        self.set_output_property('buckets', response['Buckets'])
+        buckets = [item['Name'] for item in response['Buckets']]
+        self.set_output_property('buckets', buckets)
 
 
 
