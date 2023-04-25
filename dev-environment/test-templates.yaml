@@ -1,0 +1,32 @@
+apiVersion: xl-release/v1
+kind: Templates
+metadata:
+  home: AWS S3
+spec:
+- name: Localstack
+  type: aws.Server
+  url: http://host.docker.internal:4566
+
+- template: Create and list buckets
+  phases:
+  - phase: Test
+    tasks:
+    - name: Create bucket
+      type: aws.CreateS3Bucket
+      capabilities:
+      - remote
+      server: Localstack
+      bucketName: bucket-from-release
+    - name: Get buckets
+      type: aws.ListS3Buckets
+      capabilities:
+      - remote
+      server: Localstack
+    - name: OK?
+      type: xlrelease.GateTask
+- type: xlrelease.ThemeSettings
+  id: Configuration/settings/ThemeSettings
+  headerName: SDK Environment
+  headerAccentColor: ORANGE
+  description: Instance for testing plugins build with the Integration SDK
+  loginMessage: This Digital.ai Release SDK Environment is meant for testing integrations only
